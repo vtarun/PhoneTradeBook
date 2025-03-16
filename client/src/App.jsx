@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/form/Navbar'; // Import the Navbar component
-import Form from './components/form/Form';
-import Customer from './components/form/Customer'; // Import the Customer component
+import Navbar from './components/Navbar'; // Import the Navbar component
+import SearchPage from './pages/Search';
+import HomePage from './pages/Home';
 
 function App() {
   return (
@@ -10,8 +10,8 @@ function App() {
       <div className="main-container">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Form />} />
-          <Route path="/search" element={<Customer />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </div>
     </Router>

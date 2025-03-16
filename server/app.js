@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Simple route
-app.get('/:imei', getTansaction);
+app.get('/search/:imei', getTansaction);
 
 // Route to handle form submission
 app.post('/submit', upload.fields([

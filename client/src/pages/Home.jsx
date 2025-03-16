@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import Input from '../input/Input';
-import FileInput from '../input/FileInput';
-import Dropdown from '../input/Dropdown';
-import Button from '../input/Button';
-import { validateField } from './utility';
-import { formSections } from './formConfig';
-import Navbar from './Navbar';
+import Input from '../components/Input';
+import FileInput from '../components/FileInput';
+import Dropdown from "../components/Dropdown"
+import Button from '../components/Button';
+import { validateField } from './../utility';
+import { formSections } from './../formConfig';
 
-export default function Form() {
+const HomePage = () => {
     const [formData, setFormData] = useState({
         brand: '',
         model: '',
@@ -125,4 +124,6 @@ export default function Form() {
         </div>
         </>
     );
-}
+};
+
+export default HomePage; 

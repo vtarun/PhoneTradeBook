@@ -101,5 +101,11 @@ module.exports.submitForm = async (req, res) => {
 };
 
 module.exports.getTansaction = async (req, res) => {
-
+  const customerDetails = [{
+    IMEI: 1234,
+    name: "Test Test",
+    contact: "1234556789",
+    pdfPath: "uploads/new_images.pdf"
+  }];
+  res.status(200).json(customerDetails);
 };
