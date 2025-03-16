@@ -1,17 +1,20 @@
 export default function FileInput({ id, label, error, setPhoto }) {
     return <>
-        <div>
-            <label htmlFor={id} className=" rounded-md mt-2 py-1.5 text-sm font-medium text-grey-900">{label}</label>
+        <div className="flex flex-col w-full md:w-1/4 px-1">
+            <label htmlFor={id} className=" rounded-md mt-2 py-1.5 text-sm font-medium text-white">
+                {label}
+            </label>
+            
             <input
                 type="file"
                 id={id}
                 name={id}
                 accept="image/*"
                 capture="environment"
-                className="min-w-96 mt-0 rounded-md border-b-2 border-t-2 border-x-2 border-y-2 py-1.5 text-gray-900 shadow-sm"
+                className="w-full rounded-md border-2 bg-gray-400 border-gray-400 py-1 px-3 shadow-sm text-xs"
                 onChange={(e) => setPhoto(e.target.files[0])}
             />
-            {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+            {error && <p className="mt-2 text-sm text-yellow-300">{error}</p>}
         </div>
     </>
 }

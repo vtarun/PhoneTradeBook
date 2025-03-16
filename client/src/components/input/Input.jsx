@@ -1,8 +1,10 @@
 export default function Input({ id, label, type = "text", value, error, handleChange }) {
+    const labelClass = "flex justify-items-start px-1 text-sm font-medium text-white";
+    const inputClass = `mt-1 w-full rounded-md border-2 border-gray-400 py-1 px-3 shadow-sm bg-gray-400 text-black ${type === 'date' ? 'text-xs py-2 px-2' : ''}`;
 
-    return <>
-        <div className="flex flex-col mt-4">
-            <label htmlFor={id} className="flex justify-items-start text-sm font-medium text-gray-900">
+    return (
+        <div className="flex flex-col mt-4 w-full md:w-1/5">
+            <label htmlFor={id} className={labelClass}>
                 {label}
             </label>
             <div>
@@ -11,13 +13,11 @@ export default function Input({ id, label, type = "text", value, error, handleCh
                     id={id}
                     name={id}
                     value={value}
-                    className="mt-1 min-w-96 rounded-md border-2 border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className={inputClass}
                     onChange={handleChange}
                 />
-                {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+                {error && <p className="mt-2 text-sm text-yellow-300">{error}</p>}
             </div>
         </div>
-
-    </>
-
+    );
 }
