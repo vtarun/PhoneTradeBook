@@ -7,7 +7,7 @@ import { validateField } from './../utility';
 import { formSections } from './../formConfig';
 
 const HomePage = () => {
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         brand: '',
         model: '',
         IMEI: '',
@@ -16,7 +16,8 @@ const HomePage = () => {
         dob: '',
         contact: '',
         aadhar_no: '',
-    });
+    }; 
+    const [formData, setFormData] = useState(initialFormData);
 
     const [customerPhoto, setCustomerPhoto] = useState(null);
     const [aadharFrontPhoto, setAadharFrontPhoto] = useState(null);
@@ -47,9 +48,15 @@ const HomePage = () => {
             });
 
             if (response.ok) {
-                const data = await response.json();
-                console.log(data);
+                await response.json();
                 alert("Form submitted successfully.");
+
+                // Reset form
+                setFormData(initialFormData);
+                setCustomerPhoto(null);
+                setAadharFrontPhoto(null);
+                setAadharBackPhoto(null);
+                setErrors({});
             } else {
                 alert("Form submission failed.");
             }
@@ -73,7 +80,7 @@ const HomePage = () => {
             <form onSubmit={handleSubmit} className='flex flex-col justify-center'>
                 {Object.entries(formSections).map(([sectionTitle, fields]) => (
                     <div key={sectionTitle} className="p-4 rounded-md">
-                        <h2 className="text-3xl font-bold text-white md:w-[85.6%] border-b-2 pb-2">{sectionTitle}</h2>
+                        <h2 className="text-3xl font-bold text-yellow-400 md:w-[85.6%] border-b-2 pb-2">{sectionTitle}</h2>
                         <section className='flex flex-wrap gap-1'>
                             {fields.map(field => {
                                 if (field.type === "text" || field.type === "date") {

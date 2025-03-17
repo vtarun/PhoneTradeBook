@@ -24,7 +24,7 @@ module.exports.submitForm = async (req, res) => {
       const aadharBackPhoto = req.files.aadhar_back_photo ? req.files.aadhar_back_photo[0].path : 'No Aadhar back photo';
   
       const pdfDoc = new PDFDocument();
-      const pdfPath = `uploads/new_images.pdf`;
+      const pdfPath = `uploads/${IMEI}_${Date.now()}.pdf`;
   
       pdfDoc.pipe(fs.createWriteStream(pdfPath));
   
@@ -92,6 +92,23 @@ module.exports.submitForm = async (req, res) => {
         aadhar_no,
         pdfPath
       });
+
+      // Delete the uploaded files
+      if (customerPhoto !== 'No customer photo') {
+        fs.unlink(customerPhoto, (err) => {
+          if (err) console.error('Error deleting customer photo:', err);
+        });
+      }
+      if (aadharFrontPhoto !== 'No Aadhar front photo') {
+        fs.unlink(aadharFrontPhoto, (err) => {
+          if (err) console.error('Error deleting Aadhar front photo:', err);
+        });
+      }
+      if (aadharBackPhoto !== 'No Aadhar back photo') {
+        fs.unlink(aadharBackPhoto, (err) => {
+          if (err) console.error('Error deleting Aadhar back photo:', err);
+        });
+      }
   
       res.status(200).json({ message: 'Form submitted successfully'});
     } catch (error) {
@@ -101,11 +118,7 @@ module.exports.submitForm = async (req, res) => {
 };
 
 module.exports.getTansaction = async (req, res) => {
-  const customerDetails = [{
-    IMEI: 1234,
-    name: "Test Test",
-    contact: "1234556789",
-    pdfPath: "uploads/new_images.pdf"
-  }];
+  const { IMEI } = req.params;
+  const customerDetails = await Transaction.find({IMEI});
   res.status(200).json(customerDetails);
 };

@@ -1,19 +1,15 @@
 require('dotenv').config();
-const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const path = require('path');
 const cors = require('cors');
 const app = express();
 
 const { submitForm, getTansaction } = require('./controllers/transaction.controller');
-const { get } = require('http');
 
-const port = process.env.PORT || 3000;
-const mongoURI = process.env.MONGO_URI;
+const {PORT = 3000, MONGO_URI } = process.env;
 
 
 // Middleware
@@ -29,14 +25,14 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/'); // Save images to the 'uploads' directory
   },
   filename: (req, file, cb) => {
-    cb(null, req.IMEI+ "_" + Date.now() + path.extname(file.originalname)); // Unique filename
+    cb(null, Date.now() + "_" +file.originalname); // Unique filename
   },
 });
 
 const upload = multer({ storage: storage });
 
 // Simple route
-app.get('/search/:imei', getTansaction);
+app.get('/search/:IMEI', getTansaction);
 
 // Route to handle form submission
 app.post('/submit', upload.fields([
@@ -50,13 +46,13 @@ app.use('/uploads', express.static('uploads'));
 
 
 // Database connection and server start
-mongoose.connect(mongoURI)
+mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB');
 
     // Start the server only after DB connection is established
-    app.listen(port, () => {
-      console.log(`Server is running at http://localhost:${port}`);
+    app.listen(PORT, () => {
+      console.log(`Server is running at http://localhost:${PORT}`);
     });
   })
   .catch((err) => {

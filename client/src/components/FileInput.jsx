@@ -11,7 +11,7 @@ export default function FileInput({ id, label, error, setPhoto }) {
                 name={id}
                 accept="image/*"
                 capture="environment"
-                className="w-full rounded-md border-2 bg-gray-400 border-gray-400 h-9 py-1 px-3 shadow-sm text-sm"
+                className="w-full rounded-md border-2 bg-gray-400 border-gray-400 h-9 py-1 px-3 shadow-sm text-sm focus:border-yellow-400 focus:outline-none"
                 onChange={(e) => setPhoto(e.target.files[0])}
             />
             {error && <p className="mt-2 text-sm text-yellow-300">{error}</p>}
